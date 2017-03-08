@@ -42,6 +42,7 @@ func handleFullPage(w http.ResponseWriter, r *http.Request) {
 		w.Write(failure)
 		return
 	}
+	log.Println(string(d))
 	req := &FullPageReq{}
 	err = json.Unmarshal(d, req)
 	if err != nil {
@@ -80,6 +81,7 @@ func handleSingleHost(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+	log.Println(string(d))
 	req := &SingleHostReq{}
 	err = json.Unmarshal(d, req)
 	if err != nil {
