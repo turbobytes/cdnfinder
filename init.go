@@ -21,6 +21,7 @@ var (
 	resourcefinderjs = os.TempDir() + "/cdnfinder-resourcefinder.js"
 	phantomjsbin     = ""
 	phantomdef       = flag.String("phantomjsbin", "", "path to phantomjs, if blank tmp dir is used")
+	initialized      = false
 )
 
 //Load cname chain
@@ -177,7 +178,10 @@ func loadphantomjs() {
 }
 
 func Init() {
-	//flag.Parse()
+	if initialized {
+		return
+	}
+	initialized = true
 	populatecnamechain()
 	ensureresourcefinder()
 	loadphantomjs()

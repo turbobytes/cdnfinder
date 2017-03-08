@@ -8,6 +8,7 @@ import (
 
 func detectcnamesretry(hostname, server string, retry bool) ([]string, error) {
 	out := make([]string, 0)
+	out = append(out, hostname) //Include question hostname as first item in chain
 	m1 := new(dns.Msg)
 	m1.Id = dns.Id()
 	m1.RecursionDesired = true
