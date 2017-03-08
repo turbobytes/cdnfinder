@@ -104,6 +104,6 @@ func main() {
 		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
-	log.Println("Listening on :8889")
+	log.Println("Listening on :1337")
 	log.Fatal(s.ListenAndServe())
 }
