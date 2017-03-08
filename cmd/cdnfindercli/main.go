@@ -10,12 +10,16 @@ import (
 	"github.com/turbobytes/cdnfinder"
 )
 
-func main() {
-	var server = flag.String("server", "8.8.8.8:53", "dns server for resolution")
-	var full = flag.String("full", "", "URL for full finder")
-	var hostname = flag.String("host", "", "hostname for single hostname finder")
-	flag.Parse()
+var server = flag.String("server", "8.8.8.8:53", "dns server for resolution")
+var full = flag.String("full", "", "URL for full finder")
+var hostname = flag.String("host", "", "hostname for single hostname finder")
 
+func init() {
+	flag.Parse()
+	cdnfinder.Init()
+}
+
+func main() {
 	if *full != "" {
 		out, err := cdnfinder.FullFinder(*full, *server, time.Minute)
 		if err != nil {

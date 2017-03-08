@@ -6,6 +6,7 @@ import (
 	"archive/zip"
 	"compress/bzip2"
 	"encoding/json"
+	"flag"
 	"io"
 	"io/ioutil"
 	"log"
@@ -19,6 +20,7 @@ var (
 	cdnmatches       [][]string
 	resourcefinderjs = os.TempDir() + "/cdnfinder-resourcefinder.js"
 	phantomjsbin     = ""
+	phantomdef       = flag.String("phantomjsbin", "", "path to phantomjs, if blank tmp dir is used")
 )
 
 //Load cname chain
@@ -162,7 +164,11 @@ func loadphantomjs() {
 	default:
 		notsupported()
 	}
-	phantomjsbin = os.TempDir() + "/cdnfinder_2.1.1_" + fname
+	if *phantomdef != "" {
+		phantomjsbin = *phantomdef
+	} else {
+		phantomjsbin = os.TempDir() + "/cdnfinder_2.1.1_" + fname
+	}
 	if _, err := os.Stat(phantomjsbin); os.IsNotExist(err) {
 		installphantomjs(url, phantomjsbin, fname)
 	} else {
@@ -170,7 +176,8 @@ func loadphantomjs() {
 	}
 }
 
-func init() {
+func Init() {
+	//flag.Parse()
 	populatecnamechain()
 	ensureresourcefinder()
 	loadphantomjs()
