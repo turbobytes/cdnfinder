@@ -102,5 +102,42 @@ func TestCNAME(t *testing.T) {
 			t.Error(err)
 		}
 	}
-
+	//Real world test cases
+	cases_real := map[string]string{
+		"cloudfront.cdnplanet.com":                 "Amazon Cloudfront",
+		"hwnd.cdnplanet.com":                       "Highwinds",
+		"ec.cdnplanet.com":                         "EdgeCast",
+		"cdnw.cdnplanet.com":                       "CDNetworks",
+		"cachefly.cdnplanet.com":                   "Cachefly",
+		"lvl3.cdnplanet.com":                       "Level3",
+		"netdna.cdnplanet.com":                     "MaxCDN",
+		"lw.cdnplanet.com":                         "LeaseWeb CDN",
+		"bg.cdnplanet.com":                         "Tata communications",
+		"cdn77.cdnplanet.com":                      "CDN77",
+		"llnw.cdnplanet.com":                       "Limelight",
+		"azion.turbobytes.net":                     "Azion",
+		"medianova.cdnplanet.com":                  "Medianova",
+		"cnc.cdnplanet.com.picnorecord.qtlglb.com": "QUANTIL/ChinaNetCenter",
+		"cloudflare.cdnplanet.com":                 "Cloudflare",
+		"ss.cdnplanet.com":                         "SwiftServe",
+		"dogfood.turbobytes.com":                   "TurboBytes",
+		"ecgs.cdnplanet.com":                       "EdgeCast",
+		"ecgs-large.cdnplanet.com":                 "EdgeCast",
+		"fastly-global.cdnplanet.com":              "Fastly",
+		"hwndssl.turbobytes.net":                   "Highwinds",
+		"ecssl.turbobytes.net":                     "EdgeCast",
+		"akamai.turbobytes.net":                    "Akamai",
+		"ss-sec.cdnplanet.com":                     "SwiftServe",
+		"rum.trbbts14.net":                         "EdgeCast",
+		"ecl.cdnplanet.com":                        "EdgeCast",
+	}
+	for k, v := range cases_real {
+		cdn, chain, err := HostnametoCDN(k, "8.8.8.8:53")
+		if cdn != v {
+			t.Errorf("Expected %s got: %s. Q = %s, chain = %v", v, cdn, k, chain)
+		}
+		if err != nil {
+			t.Error(err)
+		}
+	}
 }
