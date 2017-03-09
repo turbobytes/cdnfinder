@@ -10,17 +10,17 @@ import (
 
 // rawResource holds each resource accessed by the webpage
 type rawResource struct {
-	Count    int          `json: "count"`
-	Bytes    int          `json: "bytes"`
-	IsBase   bool         `json: "isbase"`
-	Hostname string       `json: "hostname"`
-	Headers  *http.Header `json: "headers"`
+	Count    int          `json:"count"`
+	Bytes    int          `json:"bytes"`
+	IsBase   bool         `json:"isbase"`
+	Hostname string       `json:"hostname"`
+	Headers  *http.Header `json:"headers"`
 }
 
 // rawDiscovery Parses the stdout from phantomjs process
 type rawDiscovery struct {
-	BasePageHost string                 `json: "basepagehost"`
-	Resources    map[string]rawResource `json: "resources"`
+	BasePageHost string                 `json:"basepagehost"`
+	Resources    map[string]rawResource `json:"resources"`
 }
 
 // discoverResources loads the url in phantomjs and fetches the resources on the page
