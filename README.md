@@ -21,6 +21,7 @@ Webapp and cli-tool to detect CDN usage of websites. This is the backend for CDN
 [turbobytes/cdnfinder](https://hub.docker.com/r/turbobytes/cdnfinder/)
 
 cli: `docker run -it turbobytes/cdnfinder cdnfindercli --phantomjsbin="/bin/phantomjs"  --full http://www.cdnplanet.com/`
+
 server: `docker run -it turbobytes/cdnfinder cdnfinderserver --phantomjsbin="/bin/phantomjs"`
 
 The `--phantomjsbin="/bin/phantomjs"` portion is important to avoid re-downloading phantomjs each time you launch a container. I will get rid of it in the future using environment variables.
@@ -31,7 +32,7 @@ The `--phantomjsbin="/bin/phantomjs"` portion is important to avoid re-downloadi
 
 TODO
 
-### CLI tool
+### cdnfindercli
 
 ````
 Usage of cdnfindercli:
@@ -47,6 +48,7 @@ Usage of cdnfindercli:
 
 Either `-full` or `-host` must be provided
 
+### cdnfinderserver
 
 ````
 Usage of cdnfinderserver:
@@ -62,6 +64,7 @@ The server listens on port 1337 on all interfaces.
 #### Server API
 
 Single host: `curl -X POST -d '{"hostname": "st.cdnplanet.com"}' -H "Content-Type: application/json" http://127.0.0.1:1337/hostname/`
+
 Full site: `curl -X POST -d '{"url": "http://www.turbobytes.com"}' -H "Content-Type: application/json" http://127.0.0.1:1337/`
 
 ## CDN mappings
