@@ -4,7 +4,7 @@
 // assets/resourcefinder.js
 // DO NOT EDIT!
 
-package cdnfinder
+package resource
 
 import (
 	"bytes"
@@ -161,7 +161,7 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
-	"assets/cnamechain.json":   assetsCnamechainJson,
+	"assets/cnamechain.json": assetsCnamechainJson,
 	"assets/resourcefinder.js": assetsResourcefinderJs,
 }
 
@@ -204,10 +204,9 @@ type bintree struct {
 	Func     func() (*asset, error)
 	Children map[string]*bintree
 }
-
 var _bintree = &bintree{nil, map[string]*bintree{
 	"assets": &bintree{nil, map[string]*bintree{
-		"cnamechain.json":   &bintree{assetsCnamechainJson, map[string]*bintree{}},
+		"cnamechain.json": &bintree{assetsCnamechainJson, map[string]*bintree{}},
 		"resourcefinder.js": &bintree{assetsResourcefinderJs, map[string]*bintree{}},
 	}},
 }}
@@ -258,3 +257,4 @@ func _filePath(dir, name string) string {
 	cannonicalName := strings.Replace(name, "\\", "/", -1)
 	return filepath.Join(append([]string{dir}, strings.Split(cannonicalName, "/")...)...)
 }
+

@@ -1,6 +1,6 @@
 package cdnfinder
 
-//go:generate go-bindata -pkg cdnfinder -o assets.go -nomemcopy assets/...
+//go:generate go-bindata -pkg resource -o resource/assets.go -nomemcopy assets/...
 import (
 	"archive/tar"
 	"archive/zip"
@@ -14,6 +14,8 @@ import (
 	"os"
 	"runtime"
 	"strings"
+
+	"github.com/turbobytes/cdnfinder/resource"
 )
 
 var (
@@ -26,7 +28,7 @@ var (
 
 //Load cname chain
 func populatecnamechain() {
-	raw, err := Asset("assets/cnamechain.json")
+	raw, err := resource.Asset("assets/cnamechain.json")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -38,7 +40,7 @@ func populatecnamechain() {
 
 func assettofile(key, dst string) {
 	if _, err := os.Stat(dst); os.IsNotExist(err) {
-		raw, err := Asset(key)
+		raw, err := resource.Asset(key)
 		if err != nil {
 			log.Fatal(err)
 		}
