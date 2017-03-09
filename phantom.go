@@ -25,7 +25,8 @@ type rawDiscovery struct {
 
 // discoverResources loads the url in phantomjs and fetches the resources on the page
 func discoverResources(url string, timeout time.Duration) (*rawDiscovery, error) {
-	ctx, _ := context.WithTimeout(context.Background(), timeout)
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
 	cmd := exec.CommandContext(ctx, phantomjsbin, resourcefinderjs, url)
 	out, err := cmd.Output()
 	if err != nil {
