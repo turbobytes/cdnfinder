@@ -1,5 +1,6 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/turbobytes/cdnfinder)](https://goreportcard.com/report/github.com/turbobytes/cdnfinder)
 [![GoDoc](https://godoc.org/github.com/turbobytes/cdnfinder?status.svg)](https://godoc.org/github.com/turbobytes/cdnfinder)
+[![Build Status](https://travis-ci.org/turbobytes/cdnfinder.svg?branch=master)](https://travis-ci.org/turbobytes/cdnfinder)
 # cdnfinder
 
 Previously known as [cdnfinder.js](https://github.com/sajal/cdnfinder.js).
