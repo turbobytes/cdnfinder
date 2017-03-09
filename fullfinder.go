@@ -6,12 +6,14 @@ import (
 	"time"
 )
 
-//Need this to mantain api compatibility
+// Hdr holds the name/value pair for http headers in output
+// Need this to maintain api compatibility
 type Hdr struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
 
+// FullResource is description of each individual resource
 type FullResource struct {
 	Count       int      `json:"count"`
 	Bytes       int      `json:"bytes"`
@@ -23,17 +25,23 @@ type FullResource struct {
 	HeaderGuess *string  `json:"headerguess"`
 }
 
+// FullOutput is the result of FullFinder
 type FullOutput struct {
 	BaseCDN   *string        `json:"basecdn"`
 	AssetCDN  *string        `json:"assetcdn"`
 	Resources []FullResource `json:"everything"`
 }
 
-// to make FullOutput.Resources sortable
+// FullSort is intermediary type to make FullOutput.Resources sortable
 type FullSort []FullResource
 
-func (a FullSort) Len() int           { return len(a) }
-func (a FullSort) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+// Len satisfies sort.Sort interface
+func (a FullSort) Len() int { return len(a) }
+
+// Swap satisfies sort.Sort interface
+func (a FullSort) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+
+// Less satisfies sort.Sort interface
 func (a FullSort) Less(i, j int) bool { return a[i].Count < a[j].Count }
 
 type hostcdn struct {
@@ -41,7 +49,8 @@ type hostcdn struct {
 	cnames []string
 }
 
-func parseraw(raw *RawDiscovery, server string) *FullOutput {
+// parseraw populates CDN information to raw output from phantomjs
+func parseraw(raw *rawDiscovery, server string) *FullOutput {
 	out := &FullOutput{
 		Resources: make([]FullResource, 0),
 	}
@@ -90,13 +99,14 @@ func parseraw(raw *RawDiscovery, server string) *FullOutput {
 		out.Resources = append(out.Resources, res)
 	}
 	sort.Sort(sort.Reverse(FullSort(out.Resources)))
-	//Most popular hostname by count desides AssetCDN
+	//Most popular hostname by count decides AssetCDN
 	if len(out.Resources) > 0 {
 		out.AssetCDN = out.Resources[0].CDN
 	}
 	return out
 }
 
+// FullFinder detects the CDN(s) used by a url by loading it in browser
 func FullFinder(url, server string, timeout time.Duration) (*FullOutput, error) {
 	raw, err := discoverResources(url, timeout)
 	if err != nil {

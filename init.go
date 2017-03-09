@@ -177,6 +177,8 @@ func loadphantomjs() {
 	}
 }
 
+// Init must be called once after the main package runs flag.Parse().
+// The reason for doing this manually is to allow main package to set up its flags.
 func Init() {
 	if initialized {
 		return

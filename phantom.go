@@ -8,7 +8,8 @@ import (
 	"time"
 )
 
-type RawResource struct {
+// rawResource holds each resource accessed by the webpage
+type rawResource struct {
 	Count    int          `json: "count"`
 	Bytes    int          `json: "bytes"`
 	IsBase   bool         `json: "isbase"`
@@ -16,12 +17,14 @@ type RawResource struct {
 	Headers  *http.Header `json: "headers"`
 }
 
-type RawDiscovery struct {
+// rawDiscovery Parses the stdout from phantomjs process
+type rawDiscovery struct {
 	BasePageHost string                 `json: "basepagehost"`
-	Resources    map[string]RawResource `json: "resources"`
+	Resources    map[string]rawResource `json: "resources"`
 }
 
-func discoverResources(url string, timeout time.Duration) (*RawDiscovery, error) {
+// discoverResources loads the url in phantomjs and fetches the resources on the page
+func discoverResources(url string, timeout time.Duration) (*rawDiscovery, error) {
 	ctx, _ := context.WithTimeout(context.Background(), timeout)
 	cmd := exec.CommandContext(ctx, phantomjsbin, resourcefinderjs, url)
 	out, err := cmd.Output()
@@ -29,7 +32,7 @@ func discoverResources(url string, timeout time.Duration) (*RawDiscovery, error)
 		return nil, err
 	}
 	//log.Println(string(out))
-	res := &RawDiscovery{}
+	res := &rawDiscovery{}
 	err = json.Unmarshal(out, res)
 	return res, err
 }

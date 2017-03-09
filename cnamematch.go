@@ -4,7 +4,7 @@ import (
 	"strings"
 )
 
-//Given a hostname, detect cname
+// HostnametoCDN detects cname chain and figures out which CDN is being used
 func HostnametoCDN(hostname, server string) (string, []string, error) {
 	if !strings.HasSuffix(hostname, ".") {
 		//Make FQDN
