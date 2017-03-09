@@ -12,6 +12,7 @@ before_install:
 
 install:
   - go get github.com/miekg/dns
+  - go get -u github.com/jteeuwen/go-bindata/...
 
 script: 
   - make test
