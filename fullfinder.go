@@ -57,7 +57,7 @@ func parseraw(raw *rawDiscovery, server string) *FullOutput {
 	hostmap := make(map[string]hostcdn)
 	var wg sync.WaitGroup
 	mut := &sync.Mutex{}
-	for k, _ := range raw.Resources {
+	for k := range raw.Resources {
 		wg.Add(1)
 		go func(k, server string) {
 			cdn, cnames, _ := HostnametoCDN(k, server)
@@ -82,7 +82,7 @@ func parseraw(raw *rawDiscovery, server string) *FullOutput {
 			CNAMES:   cnames,
 		}
 
-		for key, _ := range *v.Headers {
+		for key := range *v.Headers {
 			res.Headers = append(res.Headers, Hdr{key, v.Headers.Get(key)})
 		}
 		if cdn != "" {

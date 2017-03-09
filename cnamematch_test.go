@@ -103,7 +103,7 @@ func TestCNAME(t *testing.T) {
 		}
 	}
 	//Real world test cases
-	cases_real := map[string]string{
+	casesReal := map[string]string{
 		"cloudfront.cdnplanet.com":                 "Amazon Cloudfront",
 		"hwnd.cdnplanet.com":                       "Highwinds",
 		"ec.cdnplanet.com":                         "EdgeCast",
@@ -131,7 +131,7 @@ func TestCNAME(t *testing.T) {
 		"rum.trbbts14.net":                         "EdgeCast",
 		"ecl.cdnplanet.com":                        "EdgeCast",
 	}
-	for k, v := range cases_real {
+	for k, v := range casesReal {
 		cdn, chain, err := HostnametoCDN(k, "8.8.8.8:53")
 		if cdn != v {
 			t.Errorf("Expected %s got: %s. Q = %s, chain = %v", v, cdn, k, chain)

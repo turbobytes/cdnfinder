@@ -7,14 +7,14 @@ import (
 
 func TestHeader(t *testing.T) {
 	cases := [][]string{
-		[]string{"SerVeR", "cLoudflarE-nginx", "Cloudflare"},
-		[]string{"powered-by-chinacache", "meh", "ChinaCache"},
-		[]string{"x-edge-Location", "whatever", "OnApp"},
-		[]string{"x-amz-cF-id", "whatever", "Amazon Cloudfront"},
-		[]string{"Via", "something.bitgravity.com:3826", "Bitgravity"},
-		[]string{"Via", "foo.somethingelse.com", ""},
-		[]string{"X-CDN-Provider", "whatever", ""},
-		[]string{"X-CDN-Provider", "SkyparkCDN", "Skypark"},
+		{"SerVeR", "cLoudflarE-nginx", "Cloudflare"},
+		{"powered-by-chinacache", "meh", "ChinaCache"},
+		{"x-edge-Location", "whatever", "OnApp"},
+		{"x-amz-cF-id", "whatever", "Amazon Cloudfront"},
+		{"Via", "something.bitgravity.com:3826", "Bitgravity"},
+		{"Via", "foo.somethingelse.com", ""},
+		{"X-CDN-Provider", "whatever", ""},
+		{"X-CDN-Provider", "SkyparkCDN", "Skypark"},
 	}
 	for _, tcase := range cases {
 		hdr := make(http.Header)

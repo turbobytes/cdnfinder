@@ -20,11 +20,11 @@ func init() {
 	cdnfinder.Init()
 }
 
-type SingleHostReq struct {
+type singleHostReq struct {
 	Hostname string `json:"hostname"`
 }
 
-type FullPageReq struct {
+type fullPageReq struct {
 	Url string `json:"url"`
 }
 
@@ -43,7 +43,7 @@ func handleFullPage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log.Println(string(d))
-	req := &FullPageReq{}
+	req := &fullPageReq{}
 	err = json.Unmarshal(d, req)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -82,7 +82,7 @@ func handleSingleHost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	log.Println(string(d))
-	req := &SingleHostReq{}
+	req := &singleHostReq{}
 	err = json.Unmarshal(d, req)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
