@@ -92,6 +92,9 @@ func extractzip(r io.Reader, fname, dst string) {
 	tmpfile.Close()
 
 	zrd, err := zip.OpenReader(tmpfile.Name())
+	if err != nil {
+		log.Fatal(err)
+	}
 	for _, f := range zrd.File {
 		info := f.FileInfo()
 		if !info.IsDir() {
