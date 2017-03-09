@@ -32,17 +32,17 @@ type FullOutput struct {
 	Resources []FullResource `json:"everything"`
 }
 
-// FullSort is intermediary type to make FullOutput.Resources sortable
-type FullSort []FullResource
+// fullSort is intermediary type to make FullOutput.Resources sortable
+type fullSort []FullResource
 
 // Len satisfies sort.Sort interface
-func (a FullSort) Len() int { return len(a) }
+func (a fullSort) Len() int { return len(a) }
 
 // Swap satisfies sort.Sort interface
-func (a FullSort) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+func (a fullSort) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
 
 // Less satisfies sort.Sort interface
-func (a FullSort) Less(i, j int) bool { return a[i].Count < a[j].Count }
+func (a fullSort) Less(i, j int) bool { return a[i].Count < a[j].Count }
 
 type hostcdn struct {
 	cdn    string
@@ -98,7 +98,7 @@ func parseraw(raw *rawDiscovery, server string) *FullOutput {
 		}
 		out.Resources = append(out.Resources, res)
 	}
-	sort.Sort(sort.Reverse(FullSort(out.Resources)))
+	sort.Sort(sort.Reverse(fullSort(out.Resources)))
 	//Most popular hostname by count decides AssetCDN
 	if len(out.Resources) > 0 {
 		out.AssetCDN = out.Resources[0].CDN
