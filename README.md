@@ -9,14 +9,29 @@ Webapp and cli-tool to detect CDN usage of websites. This is the backend for CDN
 
 ## Install
 
-TODO: Test on darwin, linux/386, windows
-TODO: Binary releases
-TODO: Docker image
-TODO: Install from source
+
+### TODO: Test on darwin, linux/386, windows
+
+
+### TODO: Binary releases
+
+
+### Docker image
+
+[turbobytes/cdnfinder](https://hub.docker.com/r/turbobytes/cdnfinder/)
+
+cli: `docker run -it turbobytes/cdnfinder cdnfindercli --phantomjsbin="/bin/phantomjs"  --full http://www.cdnplanet.com/`
+server: `docker run -it turbobytes/cdnfinder cdnfinderserver --phantomjsbin="/bin/phantomjs"`
+
+The `--phantomjsbin="/bin/phantomjs"` portion is important to avoid re-downloading phantomjs each time you launch a container. I will get rid of it in the future using environment variables.
+
+### TODO: Install from source
 
 ## Usage
 
 TODO
+
+### CLI tool
 
 ````
 Usage of cdnfindercli:
@@ -30,6 +45,9 @@ Usage of cdnfindercli:
     	dns server for resolution (default "8.8.8.8:53")
 ````
 
+Either `-full` or `-host` must be provided
+
+
 ````
 Usage of cdnfinderserver:
   -phantomjsbin string
@@ -39,7 +57,12 @@ Usage of cdnfinderserver:
 
 ````
 
-TODO: Server API
+The server listens on port 1337 on all interfaces.
+
+#### Server API
+
+Single host: `curl -X POST -d '{"hostname": "st.cdnplanet.com"}' -H "Content-Type: application/json" http://127.0.0.1:1337/hostname/`
+Full site: `curl -X POST -d '{"url": "http://www.turbobytes.com"}' -H "Content-Type: application/json" http://127.0.0.1:1337/`
 
 ## CDN mappings
 
@@ -49,8 +72,7 @@ To update the list..
 
 1. Fork this repo
 2. Make your changes to `assets/cnamechain.json`
-3. Run `go generate`
-4. Run `go test`
+3. Run `make test`
 
 If all passes, send a pull request. If the nature of the change requires changes in the tests then please do so. Bonus points for expanding on the tests
 
