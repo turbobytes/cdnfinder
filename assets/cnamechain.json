@@ -29,6 +29,7 @@
   [".c3cdn.net", "ChinaCache"],
   [".lxdns.com", "ChinaNetCenter"],
   [".speedcdns.com", "QUANTIL/ChinaNetCenter"],
+  [".mwcloudcdn.com", "QUANTIL/ChinaNetCenter"],
   [".cloudflare.com", "Cloudflare"],
   [".cloudflare.net", "Cloudflare"],
   [".edgecastcdn.net", "EdgeCast"],
