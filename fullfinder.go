@@ -1,6 +1,7 @@
 package cdnfinder
 
 import (
+	"log"
 	"sort"
 	"sync"
 	"time"
@@ -50,7 +51,7 @@ type hostcdn struct {
 }
 
 // parseraw populates CDN information to raw output from phantomjs
-func parseraw(raw *rawDiscovery, server string) *FullOutput {
+func parseraw(raw *rawDiscovery, server string, verbose bool) *FullOutput {
 	out := &FullOutput{
 		Resources: make([]FullResource, 0),
 	}
@@ -107,10 +108,13 @@ func parseraw(raw *rawDiscovery, server string) *FullOutput {
 }
 
 // FullFinder detects the CDN(s) used by a url by loading it in browser
-func FullFinder(url, server string, timeout time.Duration) (*FullOutput, error) {
-	raw, err := discoverResources(url, timeout)
+func FullFinder(url, server string, timeout time.Duration, verbose bool) (*FullOutput, error) {
+	raw, err := discoverResources(url, timeout, verbose)
 	if err != nil {
 		return nil, err
 	}
-	return parseraw(raw, server), nil
+	if verbose {
+		log.Println(raw)
+	}
+	return parseraw(raw, server, verbose), nil
 }

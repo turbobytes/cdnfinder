@@ -13,6 +13,7 @@ import (
 var server = flag.String("server", "8.8.8.8:53", "dns server for resolution")
 var full = flag.String("full", "", "URL for full finder")
 var hostname = flag.String("host", "", "hostname for single hostname finder")
+var verbose = flag.Bool("verbose", false, "Post verbose logs to stderr")
 
 func init() {
 	flag.Parse()
@@ -21,7 +22,7 @@ func init() {
 
 func main() {
 	if *full != "" {
-		out, err := cdnfinder.FullFinder(*full, *server, time.Minute)
+		out, err := cdnfinder.FullFinder(*full, *server, time.Minute, *verbose)
 		if err != nil {
 			log.Fatal(err)
 		}

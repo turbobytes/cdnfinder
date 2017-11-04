@@ -50,7 +50,7 @@ func handleFullPage(w http.ResponseWriter, r *http.Request) {
 		w.Write(failure)
 		return
 	}
-	out, err := cdnfinder.FullFinder(req.Url, *server, time.Minute)
+	out, err := cdnfinder.FullFinder(req.Url, *server, time.Minute, false)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write(failure)
