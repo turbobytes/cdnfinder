@@ -1,5 +1,4 @@
-var page = require('webpage').create(),
-  t, address;
+var t, address;
 var resources = {};
 var system = require('system');
 
@@ -52,56 +51,71 @@ var makereport = function(input){
 t = Date.now();
 address = system.args[1];
 
-page.onResourceReceived = function(request){
-  var url, size, hostname, headers, i;
-  var headers = request.headers;
-//        console.log(JSON.stringify(request));
-  url = request.url;
-  if (!(size)){
-    size = (request.bodySize ? request.bodySize: 0);
-  }
-  //console.log(url); 
-  hostname = getHostname(url);
-  if ((hostname) && (size > 0)){
-    if (!(resources[hostname])){
-      resources[hostname] = {};
-      resources[hostname].count = 0;
-      resources[hostname].bytes = 0;
-    }
-    resources[hostname].count += 1;
-    //phantomjs lies! so we see content-length header is available
-    for (i=0;i<headers.length;i++){
-      if (headers[i].name.toLowerCase() == "content-length"){
-        size = parseInt(headers[i].value);
-        break;
+var loadpage = function(url){
+  var page = require('webpage').create()
+  //https://github.com/ariya/phantomjs/issues/10389#issuecomment-103650123
+  page.onNavigationRequested = function(url, type, willNavigate, main) {
+      if (main && url!=address) {
+          address = url;
+          //console.log("redirect caught")
+          page.close()
+          setTimeout('loadpage(address)',1); //Note the setTimeout here
       }
+  };
+
+  page.onResourceReceived = function(request){
+    var url, size, hostname, headers, i;
+    var headers = request.headers;
+  //        console.log(JSON.stringify(request));
+    url = request.url;
+    if (!(size)){
+      size = (request.bodySize ? request.bodySize: 0);
     }
+    //console.log(url);
+    hostname = getHostname(url);
+    if ((hostname) && (size > 0)){
+      if (!(resources[hostname])){
+        resources[hostname] = {};
+        resources[hostname].count = 0;
+        resources[hostname].bytes = 0;
+      }
+      resources[hostname].count += 1;
+      //phantomjs lies! so we see content-length header is available
+      for (i=0;i<headers.length;i++){
+        if (headers[i].name.toLowerCase() == "content-length"){
+          size = parseInt(headers[i].value);
+          break;
+        }
+      }
 
-    resources[hostname].bytes += size;
-    //save the last response headers per host
-    resources[hostname].headers = headers;
+      resources[hostname].bytes += size;
+      //save the last response headers per host
+      resources[hostname].headers = headers;
+    }
   }
+
+  //Silently ignore js err
+  page.onError = function(msg, trace) {
+  }
+
+  page.open(address, function (status) {
+    var output;
+    if (status !== 'success') {
+      console.log('{"error": "FAIL"}');
+    } else {
+      t = Date.now() - t;
+  //            console.log('Loading time ' + t + ' msec');
+      output = {};
+      output.basepagehost = page.evaluate(function () {
+          return document.location.hostname;
+      });
+
+      output.resources = resources;
+      makereport(output);
+      //console.log(JSON.stringify(output));
+    }
+    phantom.exit();
+  });
 }
 
-//Silently ignore js err
-page.onError = function(msg, trace) {
-}
-
-page.open(address, function (status) {
-  var output;
-  if (status !== 'success') {
-    console.log('{"error": "FAIL"}');
-  } else {
-    t = Date.now() - t;
-//            console.log('Loading time ' + t + ' msec');
-    output = {};
-    output.basepagehost = page.evaluate(function () {
-        return document.location.hostname;
-    });
-    
-    output.resources = resources;
-    makereport(output);
-    //console.log(JSON.stringify(output));
-  }
-  phantom.exit();
-});
+loadpage(address);
