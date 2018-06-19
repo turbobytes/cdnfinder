@@ -72,5 +72,6 @@
   [".vo.msecnd.net", "Windows Azure"],
   [".ay1.b.yahoo.com", "Yahoo"],
   [".yimg.", "Yahoo"],
-  [".zenedge.net", "Zenedge"]
+  [".zenedge.net", "Zenedge"],
+  [".b-cdn.net", "BunnyCDN"]
 ]
