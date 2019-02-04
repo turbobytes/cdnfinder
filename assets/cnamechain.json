@@ -74,5 +74,6 @@
   [".ay1.b.yahoo.com", "Yahoo"],
   [".yimg.", "Yahoo"],
   [".zenedge.net", "Zenedge"],
-  [".b-cdn.net", "BunnyCDN"]
+  [".b-cdn.net", "BunnyCDN"],
+  [".ksyuncdn.com", "Kingsoft"]
 ]

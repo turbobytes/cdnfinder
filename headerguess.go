@@ -31,6 +31,10 @@ func headerguessStr(hdr *http.Header) string {
 	if hdr.Get("X-CDN-Provider") == "SkyparkCDN" {
 		return "Skypark"
 	}
+	//BaishanCloud uses BC prefix in X-Ser header
+	if strings.HasPrefix(hdr.Get("X-Ser"), "BC") {
+		return "BaishanCloud"
+	}
 	return ""
 }
 
