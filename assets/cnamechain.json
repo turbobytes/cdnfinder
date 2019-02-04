@@ -43,6 +43,7 @@
   ["youtube.", "Google"],
   [".googleusercontent.com", "Google"],
   [".l.doubleclick.net", "Google"],
+  ["d.gcdn.co", "G-core"],
   [".hiberniacdn.com", "Hibernia"],
   [".hwcdn.net", "Highwinds"],
   [".incapdns.net", "Incapsula"],
