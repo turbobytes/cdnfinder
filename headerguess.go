@@ -31,7 +31,7 @@ func headerguessStr(hdr *http.Header) string {
 	if hdr.Get("X-CDN-Provider") == "SkyparkCDN" {
 		return "Skypark"
 	}
-	//PageCDN sends an X header with their brand name
+	//PageCDN sends X-CDN header with their brand name
 	if hdr.Get("X-CDN") == "PageCDN" {
 		return "PageCDN"
 	}
