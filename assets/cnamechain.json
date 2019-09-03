@@ -1,6 +1,7 @@
 [
   [".clients.turbobytes.net", "TurboBytes"],
   [".turbobytes-cdn.com", "TurboBytes"],
+  ["pagecdn.io", "PageCDN"],
   [".afxcdn.net", "afxcdn.net"],
   [".akamai.net", "Akamai"],
   [".akamaiedge.net", "Akamai"],
