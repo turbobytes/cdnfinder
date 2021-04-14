@@ -3,6 +3,9 @@
 [![Build Status](https://travis-ci.org/turbobytes/cdnfinder.svg?branch=master)](https://travis-ci.org/turbobytes/cdnfinder)
 # cdnfinder
 
+❗❗❗ This tool is deprecated and should not be used anymore. The CDN Finder is available at https://www.cdnplanet.com/tools/cdnfinder/
+
+---
 Previously known as [cdnfinder.js](https://github.com/sajal/cdnfinder.js).
 
 Webapp and cli-tool to detect CDN usage of websites. This is the backend for CDNPlanet's [CDN Finder tool.](http://www.cdnplanet.com/tools/cdnfinder/)
